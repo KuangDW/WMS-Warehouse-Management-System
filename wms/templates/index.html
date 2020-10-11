@@ -1,0 +1,313 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  
+  <title>warehouse_test</title>
+
+<!-- Bootstrap core CSS -->
+<link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- io core -->
+<script type="text/javascript" src="//cdn.bootcss.com/socket.io/1.5.1/socket.io.min.js"></script>
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">測試用座標</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div>
+    <div>
+    </div>
+  </div>
+
+  <!-- Page Content -->
+  
+      <div >
+        <div class = "chartbox">
+          <canvas id="heyChart"></canvas>
+        </div>
+        <div class ="startbuttom">
+          <div>
+          <table id = "setbase" class="Base-table">
+            <thead>
+              <tr>
+                <th>BaseNumber</th>
+                <th>BaseID</th>
+                <th>BaseAxis_X</th>
+                <th>BaseAxis_Y</th>
+                <th>BaseAxis_Z</th>
+              </tr>
+            </thead>
+            <tbody>
+              <div>
+                <input type="button" onclick = "change()" id="startbutton"  value="開始定位">
+              </div>
+              <tr>
+                  <td>Base_1</td>
+                  <td  id="Base_0_ID">                
+                    <form >
+                    <input class="inputbox" type="text">
+                    </form>
+                  </td>
+                  <td  id="Base_0_X">                
+                    <form >
+                    <input class="inputbox" type="text">
+                    </form>
+                  </td>
+                  <td  id="Base_0_Y">
+                    <form >
+                      <input class="inputbox" type="text">
+                      </form>
+                  </td>
+                  <td  id="Base_0_Z">
+                    <form >
+                      <input class="inputbox" type="text">
+                      </form>
+                  </td>
+              </tr>
+              <tr>
+                  <td>Base_2</td>
+                  <td  id="Base_1_ID">                
+                    <form >
+                    <input class="inputbox" type="text">
+                    </form>
+                  </td>
+                  <td  id="Base_1_X">
+                    <form >
+                      <input class="inputbox" type="text">
+                      </form>
+                  </td>
+                  <td  id="Base_1_Y">
+                    <form >
+                      <input class="inputbox" type="text">
+                      </form>
+                  </td>
+                  <td  id="Base_1_Z">
+                    <form >
+                      <input class="inputbox" type="text">
+                      </form>
+                  </td>
+              </tr>
+               <tr>
+                  <td>Base_3</td>
+                  <td  id="Base_2_ID">                
+                    <form >
+                    <input class="inputbox" type="text">
+                    </form>
+                  </td>
+                  <td  id="Base_2_X">
+                    <form >
+                      <input class="inputbox" type="text">
+                      </form>
+                  </td>
+                  <td  id="Base_2_Y">
+                    <form >
+                      <input class="inputbox" type="text">
+                      </form>
+                  </td>
+                  <td  id="Base_2_Z">
+                    <form >
+                      <input class="inputbox" type="text">
+                      </form>
+                  </td>
+               </tr>
+              <tr>
+                  <td>Base_4</td>
+                  <td  id="Base_3_ID">                
+                    <form >
+                    <input class="inputbox" type="text">
+                    </form>
+                  </td>
+                  <td  id="Base_3_X">
+                    <form >
+                      <input class="inputbox" type="text">
+                      </form>
+                  </td>
+                  <td  id="Base_3_Y">
+                    <form >
+                      <input class="inputbox" type="text">
+                      </form>
+                  </td>
+                  <td  id="Base_3_Z">
+                    <form >
+                      <input class="inputbox" type="text">
+                      </form>
+                  </td>
+               </tr>
+  
+          </tbody>
+          </table>
+          </div>
+          <div>
+            <input type="button" onclick = "getsettingtable ()" id="settingtable"  value="設定">
+            </div>
+
+        </div>
+
+      </div>
+    <div>
+      <table class="zui-table">
+        <thead>
+            <tr>
+                <th>卡片</th>
+                <th>Axis_X</th>
+                <th>Axis_Y</th>
+                <th>Axis_Z</th>
+                <th>累積行進距離 (cm)</th>
+                <th>近五點平均速率 (cm/s)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>卡片1</td>
+                <td  id="Point0x"></td>
+                <td  id="Point0y"></td>
+                <td  id="Point0z"></td>
+                <td  id="Point0leng"></td>
+                <td  id="Point0spee"></td>
+            </tr>
+            <tr>
+                <td>卡片2</td>
+                <td  id="Point1x"></td>
+                <td  id="Point1y"></td>
+                <td  id="Point1z"></td>
+                <td  id="Point1leng"></td>
+                <td  id="Point1spee"></td>
+            </tr>
+             <tr>
+                <td>卡片3</td>
+                <td  id="Point2x"></td>
+                <td  id="Point2y"></td>
+                <td  id="Point2z"></td>
+                <td  id="Point2leng"></td>
+                <td  id="Point2spee"></td>
+             </tr>
+            <tr>
+                <td>卡片4</td>
+                <td  id="Point3x"></td>
+                <td  id="Point3y"></td>
+                <td  id="Point3z"></td>
+                <td  id="Point3leng"></td>
+                <td  id="Point3spee"></td>
+             </tr>
+
+        </tbody>
+    </table>
+  </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="static/vendor/jquery/jquery.min.js"></script>
+    <!-- <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+    <script src="static/vendor/chart.js"></script>
+    <!-- chartjs-plugin-zoom -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+    <script src="https://cdnjs.com/libraries/hammer.js/"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.7"></script>
+  </body>
+
+  <style>
+
+    .chartbox{
+      margin:0 auto;
+      width: 900px;
+    }
+    #heyChart {
+      width: 100%;
+      height: 500px;
+      max-width: 100%;
+      float: left;
+    }
+    .startbutton{
+      margin:0 auto;
+
+      float: right;
+      width: 100%;
+  
+    }
+
+    .Base-table{
+      <!-- width: 80%; -->
+      float: left;
+      margin: 16px;
+      border: solid 1px #DDEEEE;
+      border-collapse: collapse;
+      border-spacing: 0;
+      font: normal 13px Arial, sans-serif;
+      <!-- margin: 0 auto -->
+    }
+    .Base-table thead th {
+      background-color: #DDEFEF;
+      border: solid 1px #DDEEEE;
+      color: #336B6B;
+      padding: 10px;
+      text-align: left;
+      text-shadow: 1px 1px 1px #fff;
+    }
+     .Base-table tbody td {
+      border: solid 1px #DDEEEE;
+      color: #333;
+      padding: 10px;
+      text-shadow: 1px 1px 1px #fff;
+    }
+
+    .inputbox{
+      width:75px ;
+      vertical-align: middle;
+      text-align: center;
+      
+      
+    }
+    .zui-table {
+    width: 80%;
+    margin: 16px;
+    border: solid 1px #DDEEEE;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font: normal 13px Arial, sans-serif;
+    margin: 0 auto
+    }
+    .zui-table thead th {
+        background-color: #DDEFEF;
+        border: solid 1px #DDEEEE;
+        color: #336B6B;
+        padding: 10px;
+        text-align: left;
+        text-shadow: 1px 1px 1px #fff;
+    }
+    .zui-table tbody td {
+        border: solid 1px #DDEEEE;
+        color: #333;
+        padding: 10px;
+        text-shadow: 1px 1px 1px #fff;
+    }
+
+  </style>
+
+
+
+
+
+</html>

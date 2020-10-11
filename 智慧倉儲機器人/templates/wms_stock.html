@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>倉儲網頁管理系統 </title>
+
+    <!-- Bootstrap -->
+    <link href="static/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="static/vendor/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+   <link href="static/vendor/iCheck/skins/flat/green.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="static/build/css/custom.min.css" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+  <div class="container body">
+    <div class="main_container">
+      <div class="col-md-3 left_col">
+        <div class="left_col scroll-view">
+          <div class="navbar nav_title" style="border: 0;">
+            <a href="index2.html" class="site_title"><i class="fa fa-cubes"></i> <span>倉儲網頁管理系統</span></a>
+          </div>
+
+          <div class="clearfix"></div>
+
+          <!-- menu profile quick info -->
+          <div class="profile clearfix">
+            <!-- <div class="profile_pic">
+              <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+              <span>Welcome,</span>
+              <h2>John Doe</h2>
+            </div> -->
+          </div>
+          <!-- /menu profile quick info -->
+
+          <br />
+
+          <!-- sidebar menu -->
+          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+              <ul class="nav side-menu">
+                <li><a href="index2.html"><i class="fa fa-bar-chart-o"></i> 即時看板 </a>
+                </li>
+                <li><a href="/"><i class="fa fa-wifi"></i> 即時定位 </a>
+                </li>
+                <li><a href="wms_history"><i class="fa fa-files-o"></i> 歷史軌跡 </a>
+                </li>
+                <li><a href="wms_input"><i class="fa fa-truck"></i> 入庫驗收 </a>
+                </li>
+                <li><a><i class="fa fa-archive"></i> 庫存貨量 </a>
+                </li>
+                <li><a><i class="fa fa-hand-rock-o"></i> 撿貨作業 </a>
+                </li>
+                <li><a><i class="fa fa-external-link"></i> 出貨處理 </a>
+                </li>
+                <li><a href="wms_setting"><i class="fa fa-question"></i> 管理設定 </a>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+          <!-- /sidebar menu -->
+
+          <!-- /menu footer buttons -->
+          <div class="sidebar-footer hidden-small">
+            <a data-toggle="tooltip" data-placement="top" title="Settings">
+              <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+              <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="Lock">
+              <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+              <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+            </a>
+          </div>
+          <!-- /menu footer buttons -->
+        </div>
+      </div>
+
+      <!-- top navigation -->
+      <div class="top_nav">
+        <div class="nav_menu">
+          <div class="nav toggle">
+            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+          </div>
+          <nav class="nav navbar-nav">
+            <ul class=" navbar-right">
+              <li class="nav-item dropdown open" style="padding-left: 15px;">
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <!-- /top navigation -->
+
+      <!-- page content -->
+      <div class="right_col" role="main">
+        <div class="">
+
+
+          <div class="row">
+            <div class="col-md-12 col-sm-12  ">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>盤點清單</h2>
+                  <div class="clearfix"></div>
+                </div>
+
+                <div class="x_content">
+
+                  <div class="table-responsive">
+                    <p></p>
+                    <form id="Select_form">
+                      <select name="YourLocation" id ="Section_select" Style="font-size:19px;">
+                        <option value="none"></option>
+                      　<option value="A">A 區</option>
+                      　<option value="B">B 區</option>
+                      　<option value="C">C 區</option>
+                      　<option value="D">D 區</option>
+                      　<option value="A','B','C','D">全區</option>
+                      </select>
+                      </form>
+                    <div style="text-align:center">
+                    <button class="btn btn-info btn-sm" id="inventory_Manual">表格勾選品項盤點</button>
+                    <button class="btn btn-info btn-sm" id="inventory_auto"  >開啟自動盤點</button>
+                  </div>
+                    <table class="table table-striped jambo_table bulk_action">
+                      <thead>
+                        <tr class="headings" id= "headingssetting">
+                          <th>
+                            <input type="checkbox" id="check-all" class="flat">
+                          </th>
+                          <th class="column-title" id="column-setting">品項編碼</th>
+                          <th class="column-title" id="column-setting">品項名稱 </th>
+                          <th class="column-title" id="column-setting">進貨日期 </th>
+                          <th class="column-title" id="column-setting">RFID編號</th>
+                          <th class="column-title" id="column-setting">供應商</th>
+                          <th class="column-title" id="column-setting">庫存數量</th>
+                          <th class="column-title" id="column-setting">擺放區域</th>
+                          <th class="column-title" id="column-setting">最近盤點時間</th>
+                          
+                          
+                          <th class="bulk-actions" id="column-setting1" colspan="8">
+                            <a class="antoo" style="color:#fff; font-weight:500;">已選取 ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody id = "inventory_append_table">
+                        <!-- <tr class="even pointer">
+                          <td class="a-center ">
+                            <input type="checkbox" class="flat" name="table_records">
+                          </td>
+                          <td class=" ">121000040</td>
+                          <td class=" ">貨物1</td>
+                          <td class=" ">May 23, 2014 11:47:56 PM </td>
+                          <td class=" ">廠商1</td>
+                          <td class=" ">150</td>
+                          <td class=" ">150</td>
+                          <td class=" ">150</td>
+                        </tr>
+                        <tr class="odd pointer">
+                          <td class="a-center ">
+                            <input type="checkbox" class="flat" name="table_records">
+                          </td>
+                          <td class=" ">121000055</td>
+                          <td class=" ">貨物2</td>
+                          <td class=" ">May 23, 2014 11:47:56 PM </td>
+                          <td class=" ">廠商1</td>
+                          <td class=" ">50</td>
+                        </tr>
+                        <tr class="even pointer">
+                          <td class="a-center ">
+                            <input type="checkbox" class="flat" name="table_records">
+                          </td>
+                          <td class=" ">121000063</td>
+                          <td class=" ">貨物3</td>
+                          <td class=" ">May 23, 2014 11:47:56 PM </td>
+                          <td class=" ">廠商2</td>
+                          <td class=" ">80</td>
+                        </tr>
+                        <tr class="odd pointer">
+                          <td class="a-center ">
+                            <input type="checkbox" class="flat" name="table_records">
+                          </td>
+                          <td class=" ">121000155</td>
+                          <td class=" ">貨物4</td>
+                          <td class=" ">May 23, 2014 11:47:56 PM </td>
+                          <td class=" ">廠商1</td>
+                          <td class=" ">330</td>
+                        </tr>
+                        <tr class="even pointer">
+                          <td class="a-center ">
+                            <input type="checkbox" class="flat" name="table_records">
+                          </td>
+                          <td class=" ">121000171</td>
+                          <td class=" ">貨物5</td>
+                          <td class=" ">May 23, 2014 11:47:56 PM </td>
+                          <td class=" ">廠商3</td>
+                          <td class=" ">260</td>
+                        </tr> -->
+                      </tbody>
+                    </table>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="row">
+
+          </div>
+        </div>
+      </div>
+      <!-- /page content -->
+
+      <!-- footer content -->
+      <footer>
+        <div class="pull-right">
+          Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+        </div>
+        <div class="clearfix"></div>
+      </footer>
+      <!-- /footer content -->
+    </div>
+  </div>
+
+    <!-- jQuery -->
+    <script src="static/vendor/jquery/dist/jquery.min.js"></script>
+
+
+    <!-- Bootstrap -->
+   <script src="static/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="static/vendor/fastclick/lib/fastclick.js"></script>
+        <!-- iCheck -->
+        <script src="static/vendor/iCheck/icheck.min.js"></script>
+    <!-- NProgress -->
+    <script src="static/vendor/nprogress/nprogress.js"></script>
+    <script src="static/vendor/current_stock.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="static/build/js/custom.min.js"></script>
+
+  
+</body>
+
+</html>

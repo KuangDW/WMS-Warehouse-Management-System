@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>倉儲網頁管理系統 </title>
+
+    <!-- Bootstrap -->
+    <link href="static/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="static/vendor/nprogress/nprogress.css" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <link href="static/vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="static/build/css/custom.min.css" rel="stylesheet">
+    <!-- io core -->
+    <script type="text/javascript" src="//cdn.bootcss.com/socket.io/1.5.1/socket.io.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
+
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="index2.html" class="site_title"><i class="fa fa-cubes"></i> <span>倉儲網頁管理系統</span></a>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <!-- menu profile quick info -->
+                    <div class="profile clearfix">
+                        <!-- <div class="profile_pic">
+              <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+              <span>Welcome,</span>
+              <h2>John Doe</h2>
+            </div> -->
+                    </div>
+                    <!-- /menu profile quick info -->
+
+                    <br />
+
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <ul class="nav side-menu">
+                                <li><a href="index2.html"><i class="fa fa-bar-chart-o"></i> 即時看板 </a>
+                                </li>
+                                <li><a href="/"><i class="fa fa-wifi"></i> 即時定位 </a>
+                                </li>
+                                <li><a href="wms_history"><i class="fa fa-files-o"></i> 歷史軌跡 </a>
+                                </li>
+                                <li><a><i class="fa fa-truck"></i> 入庫驗收 </a>
+                                </li>
+                                <li><a><i class="fa fa-archive"></i> 庫存貨量 </a>
+                                </li>
+                                <li><a><i class="fa fa-hand-rock-o"></i> 撿貨作業 </a>
+                                </li>
+                                <li><a><i class="fa fa-external-link"></i> 出貨處理 </a>
+                                </li>
+                                <li><a href="wms_setting"><i class="fa fa-question"></i> 管理設定 </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <!-- /sidebar menu -->
+
+                    <!-- /menu footer buttons -->
+                    <div class="sidebar-footer hidden-small">
+                        <a data-toggle="tooltip" data-placement="top" title="Settings">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Lock">
+                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                    <!-- /menu footer buttons -->
+                </div>
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <nav class="nav navbar-nav">
+                        <ul class=" navbar-right">
+                            <li class="nav-item dropdown open" style="padding-left: 15px;">
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="top_tiles">
+                                <!-- <div class="animated flipInY col-lg-3 col-md-3 col-sm-3 ">
+                                    <div class="tile-stats">
+                                        <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
+                                        <div class="count">179</div>
+                                        <h3>New Sign ups</h3>
+                                        <p>Lorem ipsum psdea itgum rixt.</p>
+                                    </div>
+                                </div>
+                                <div class="animated flipInY col-lg-3 col-md-3 col-sm-3 ">
+                                    <div class="tile-stats">
+                                        <div class="icon"><i class="fa fa-comments-o"></i></div>
+                                        <div class="count">179</div>
+                                        <h3>New Sign ups</h3>
+                                        <p>Lorem ipsum psdea itgum rixt.</p>
+                                    </div>
+                                </div>
+                                <div class="animated flipInY col-lg-3 col-md-3 col-sm-3 ">
+                                    <div class="tile-stats">
+                                        <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
+                                        <div class="count">179</div>
+                                        <h3>New Sign ups</h3>
+                                        <p>Lorem ipsum psdea itgum rixt.</p>
+                                    </div>
+                                </div>
+                                <div class="animated flipInY col-lg-3 col-md-3 col-sm-3 ">
+                                    <div class="tile-stats">
+                                        <div class="icon"><i class="fa fa-check-square-o"></i></div>
+                                        <div class="count">179</div>
+                                        <h3>New Sign ups</h3>
+                                        <p>Lorem ipsum psdea itgum rixt.</p>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h3>基本設定</h3>
+                                    <div class="filter">
+                                        <diV>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <div class="col-md-8 col-sm-12 ">
+                                        <p>
+                                            <h5>基站一</h5>
+                                        </p>
+                                        <div class="demo-container" style="height:100%">
+                                            <form class="form-inline">
+                                                <div class="form-group">
+                                                  <label for="ex3" class="col-form-label">X：</label>
+                                                  <input type="text" id="base00" class="form-control" placeholder=" ">
+                                                </div>
+                                                <div class="form-group">
+                                                  <label for="ex4" class="col-form-label">Y：</label>
+                                                  <input type="text" id="base01" class="form-control" placeholder=" ">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="ex4" class="col-form-label">Z：</label>
+                                                    <input type="text" id="base02" class="form-control" placeholder=" ">
+                                                </div>
+                                              </form>
+                                              <p>
+                                                <h5>基站二</h5>
+                                              </p>
+                                              <form class="form-inline">
+                                                <div class="form-group">
+                                                    <label for="ex3" class="col-form-label">X：</label>
+                                                    <input type="text" id="base10" class="form-control" placeholder=" ">
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label for="ex4" class="col-form-label">Y：</label>
+                                                    <input type="text" id="base11" class="form-control" placeholder=" ">
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label for="ex4" class="col-form-label">Z：</label>
+                                                      <input type="text" id="base12" class="form-control" placeholder=" ">
+                                                  </div>
+                                              </form>
+                                              <p>
+                                                <h5>基站三</h5>
+                                              </p>
+                                              <form class="form-inline">
+                                                <div class="form-group">
+                                                    <label for="ex3" class="col-form-label">X：</label>
+                                                    <input type="text" id="base20" class="form-control" placeholder=" ">
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label for="ex4" class="col-form-label">Y：</label>
+                                                    <input type="text" id="base21" class="form-control" placeholder=" ">
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label for="ex4" class="col-form-label">Z：</label>
+                                                      <input type="text" id="base22" class="form-control" placeholder=" ">
+                                                  </div>
+                                              </form>
+                                              <p>
+                                                <h5>基站四</h5>
+                                              </p>
+                                              <form class="form-inline">
+                                                <div class="form-group">
+                                                    <label for="ex3" class="col-form-label">X：</label>
+                                                    <input type="text" id="base30" class="form-control" placeholder=" ">
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label for="ex4" class="col-form-label">Y：</label>
+                                                    <input type="text" id="base31" class="form-control" placeholder=" ">
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label for="ex4" class="col-form-label">Z：</label>
+                                                      <input type="text" id="base32" class="form-control" placeholder=" ">
+                                                  </div>         
+                                      
+                                              </form>
+                                              <p>
+
+                                            </p>
+                                              <button  id="basesetting" class="btn btn-success btn-lg">設定座標</button> 
+                                        </div>
+                                        <!-- <div class="tiles"> -->
+                                            <!-- <div class="col-md-4 tible"> -->
+                                                <!-- <span>Total Sessions</span> -->
+                                                <!-- <h2>231,809</h2> -->
+                                                <!-- <span class="sparkline11 graph" style="height: 160px;"> -->
+                                                    <!-- <canvas width="200" height="60" -->
+                                                        <!-- style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas> -->
+                                                <!-- </span> -->
+                                            <!-- </div> -->
+                                            <!-- <div class="col-md-4 tile"> -->
+                                                <!-- <span>Total Revenue</span> -->
+                                                <!-- <h2>$231,809</h2> -->
+                                                <!-- <span class="sparkline22 graph" style="height: 160px;"> -->
+                                                    <!-- <canvas width="200" height="60" -->
+                                                        <!-- style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas> -->
+                                                <!-- </span> -->
+                                            <!-- </div> -->
+                                            <!-- <div class="col-md-4 tile"> -->
+                                                <!-- <span>Total Sessions</span> -->
+                                                <!-- <h2>231,809</h2> -->
+                                                <!-- <span class="sparkline11 graph" style="height: 160px;"> -->
+                                                    <!-- <canvas width="200" height="60" -->
+                                                        <!-- style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas> -->
+                                                <!-- </span> -->
+                                            <!-- </div> -->
+                                        <!-- </div> -->
+
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-12 ">
+                                        <div>
+                                            
+                                        </div>
+                                        <div>
+                                            <!-- <input type="button" class = "btn btn-success" Id = "startbutton" onclick = "change()"  value="開始定位"></button> -->
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+
+                    </div>
+                </div>
+            </div>
+            <!-- /page content -->
+
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="static/vendor/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="static/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="static/vendor/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="static/vendor/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="static/vendor/Chart.js/dist/Chart.min.js"></script>
+    <!-- jQuery Sparklines -->
+    <script src="static/vendor/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+    <!-- Flot -->
+    <script src="static/vendor/Flot/jquery.flot.js"></script>
+    <script src="static/vendor/Flot/jquery.flot.pie.js"></script>
+    <script src="static/vendor/Flot/jquery.flot.time.js"></script>
+    <script src="static/vendor/Flot/jquery.flot.stack.js"></script>
+    <script src="static/vendor/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="static/vendor/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="static/vendor/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="static/vendor/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="static/vendor/DateJS/build/date.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="static/vendor/moment/min/moment.min.js"></script>
+    <script src="static/vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+    <script src="static/vendor/setting.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="static/build/js/custom.min.js"></script>
+
+</body> 
+<style>
+    .linebreak {
+        word-break: break-all;
+        min-width: 20px;
+        max-width: 50px;
+    }
+
+</style>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>倉儲網頁管理系統 </title>
+
+    <!-- Bootstrap -->
+    <link href="static/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="static/vendor/nprogress/nprogress.css" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <link href="static/vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="static/build/css/custom.min.css" rel="stylesheet">
+    <!-- io core -->
+    <script type="text/javascript" src="//cdn.bootcss.com/socket.io/1.5.1/socket.io.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
+
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="index2.html" class="site_title"><i class="fa fa-cubes"></i> <span>倉儲網頁管理系統</span></a>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <!-- menu profile quick info -->
+                    <div class="profile clearfix">
+                        <!-- <div class="profile_pic">
+              <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+              <span>Welcome,</span>
+              <h2>John Doe</h2>
+            </div> -->
+                    </div>
+                    <!-- /menu profile quick info -->
+
+                    <br />
+
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <ul class="nav side-menu">
+                                <li><a href="index2.html"><i class="fa fa-bar-chart-o"></i> 即時看板 </a>
+                                </li>
+                                <li><a href="/"><i class="fa fa-wifi"></i> 即時定位 </a>
+                                </li>
+                                <li><a href="wms_history"><i class="fa fa-files-o"></i> 歷史軌跡 </a>
+                                </li>
+                                <li><a><i class="fa fa-truck"></i> 入庫驗收 </a>
+                                </li>
+                                <li><a><i class="fa fa-archive"></i> 庫存貨量 </a>
+                                </li>
+                                <li><a><i class="fa fa-hand-rock-o"></i> 撿貨作業 </a>
+                                </li>
+                                <li><a><i class="fa fa-external-link"></i> 出貨處理 </a>
+                                </li>
+                                <li><a href="wms_setting"><i class="fa fa-question"></i> 管理設定 </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <!-- /sidebar menu -->
+
+                    <!-- /menu footer buttons -->
+                    <div class="sidebar-footer hidden-small">
+                        <a data-toggle="tooltip" data-placement="top" title="Settings">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Lock">
+                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                    <!-- /menu footer buttons -->
+                </div>
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <nav class="nav navbar-nav">
+                        <ul class=" navbar-right">
+                            <li class="nav-item dropdown open" style="padding-left: 15px;">
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+
+          
+         <!-- page content -->
+         <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>揀貨任務</h3>
+              </div>
+
+              <div class="title_right">
+                <p></p>
+                <p></p>  
+                <p></p>  
+                <button class="btn btn-info btn-sm" id="pickupmission"  >開始揀貨</button>
+                <button class="btn btn-info btn-sm" id="pickupclose"  >結束揀貨</button>
+                <div class="col-md-5 col-sm-5  form-group row pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                              <button class="btn btn-secondary" type="button">Go!</button>
+                          </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div id ="anchor_point">
+           
+              
+            <!-- <div class="row"> -->
+              <!-- <div class="col-md-12 col-sm-12 "> -->
+                <!-- <div class="x_panel"> -->
+                  <!-- <div class="x_title"> -->
+                    <!-- <h2>揀貨單 69115908</h2> -->
+                    <!-- <ul class="nav navbar-right panel_toolbox"> -->
+                      <!-- <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> -->
+                      <!-- </li> -->
+                      <!-- <li class="dropdown"> -->
+                        <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a> -->
+                        <!-- <ul class="dropdown-menu" role="menu"> -->
+                          <!-- <li><a href="#">Settings 1</a> -->
+                          <!-- </li> -->
+                          <!-- <li><a href="#">Settings 2</a> -->
+                          <!-- </li>
+                        </ul> -->
+                      <!-- </li> -->
+                      <!-- <li><a class="close-link"><i class="fa fa-close"></i></a> -->
+                      <!-- </li> -->
+                    <!-- </ul> -->
+                    <!-- <div class="clearfix"></div> -->
+                  <!-- </div> -->
+                  <!-- <div class="x_content"> -->
+
+
+                    <!-- Smart Wizard -->
+                    <!-- <p>This is a basic form wizard example that inherits the colors from the selected scheme.</p> -->
+                    <!-- <div id="wizard" class="form_wizard wizard_horizontal"> -->
+                      <!-- <ul id = "wizard_steps" class="wizard_steps"> -->
+                        <!-- <li> -->
+                          <!-- <a href="#step-1"> -->
+                            <!-- <span class="step_no" >1</span> -->
+                            <!-- <span class="step_descr"> -->
+                                              <!-- Step 1<br /> -->
+                                              <!-- <small>Step 1 description</small> -->
+                                         <!-- </span> -->
+                          <!-- </a> -->
+                        <!-- </li> -->
+                        <!-- <li> -->
+                          <!-- <a href="#step-2"> -->
+                            <!-- <span class="step_no">2</span> -->
+                            <!-- <span class="step_descr"> -->
+                                              <!-- Step 2<br /> -->
+                                              <!-- <small>Step 2 description</small> -->
+                                          <!-- </span> -->
+                          <!-- </a> -->
+                        <!-- </li>
+                        <li>
+                          <a href="#step-3">
+                            <span class="step_no">3</span>
+                            <span class="step_descr">
+                                              Step 3<br />
+                                              <small>Step 3 description</small>
+                                          </span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#step-4">
+                            <span class="step_no">4</span>
+                            <span class="step_descr">
+                                              Step 4<br />
+                                              <small>Step 4 description</small>
+                                          </span>
+                          </a>
+                        </li>
+                      </ul>
+                      <div id="step-1">
+                        <form class="form-horizontal form-label-left">
+
+                          <div class="form-group row">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">First Name <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                              <input type="text" id="first-name" required="required" class="form-control  ">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Last Name <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                              <input type="text" id="last-name" name="last-name" required="required" class="form-control ">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Middle Name / Initial</label>
+                            <div class="col-md-6 col-sm-6 ">
+                              <input id="middle-name" class="form-control col" type="text" name="middle-name">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">Gender</label>
+                            <div class="col-md-6 col-sm-6 ">
+                              <div id="gender" class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-secondary">
+                                  <input type="radio" name="gender" value="male" class="join-btn"> &nbsp; Male &nbsp;
+                                </label>
+                                <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-secondary">
+                                  <input type="radio" name="gender" value="female" class="join-btn"> Female
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">Date Of Birth <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 ">
+                              <input id="birthday" class="date-picker form-control" required="required" type="text">
+                            </div>
+                          </div>
+
+                        </form>
+
+                      </div>
+                      <div id="step-2">
+                        <h2 class="StepTitle">Step 2 Content</h2>
+                        <p>
+                          do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                          fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                      </div>
+                      <div id="step-3">
+                        <h2 class="StepTitle">Step 3 Content</h2>
+                        <p>
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+                          eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                      </div>
+                      <div id="step-4">
+                        <h2 class="StepTitle">Step 4 Content</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                      </div>
+
+                    </div> -->
+                    <!-- End SmartWizard Content -->
+
+
+
+
+
+
+
+                    <!-- End SmartWizard Content -->
+                  <!-- </div> -->
+                <!-- </div> -->
+              <!-- </div> -->
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="static/vendor/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+   <script src="static/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="static/vendor/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="static/vendor/nprogress/nprogress.js"></script>
+    <!-- jQuery Smart Wizard -->
+    <script src="static/vendor/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
+    <!-- Custom Theme Scripts -->
+    <!-- <script src="../build/js/custom.min.js"></script> -->
+    <!-- Chart.js -->
+    <script src="static/vendor/Chart.js/dist/Chart.min.js"></script>
+    <!-- jQuery Sparklines -->
+
+    <!-- Flot -->
+    <script src="static/vendor/Flot/jquery.flot.js"></script>
+    <script src="static/vendor/Flot/jquery.flot.pie.js"></script>
+    <script src="static/vendor/Flot/jquery.flot.time.js"></script>
+    <script src="static/vendor/Flot/jquery.flot.stack.js"></script>
+    <script src="static/vendor/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="static/vendor/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="static/vendor/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="static/vendor/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="static/vendor/DateJS/build/date.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="static/vendor/moment/min/moment.min.js"></script>
+    <script src="static/vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+    <script src="static/vendor/pickup.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="static/build/js/custom.min.js"></script>
+
+</body> 
+<style>
+    .linebreak {
+        word-break: break-all;
+        min-width: 20px;
+        max-width: 50px;
+    }
+
+</style>
+</html>
